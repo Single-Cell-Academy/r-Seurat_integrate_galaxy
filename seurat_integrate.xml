@@ -1,0 +1,27 @@
+<tool id="seurat_integrate" name="Integrate Seurat Object" version="0.0.0" python_template_version="3.5">
+<description> Integrate Seurat Objects </description>
+<macros>
+    <import>seurat_macros.xml</import>
+</macros>
+<expand macro="requirements"/>
+<stdio>
+    <exit_code range="1:" />
+</stdio>
+<command><![CDATA[
+    Rscript '${__tool_directory__}'/seurat-integrate.R --object-1 $object_1 --object-2 $object_2 --integration-type $integration_type --output-object-file $rds_seurat_file
+]]></command>
+<inputs>
+    <param type="data" name="object_1" label="Seurat Object 1" format="rdata" multiple="false" optional="false"/>
+    <param type="data" name="object_2" label="Seurat Object 2" format="rdata" multiple="false" optional="false"/>
+    <param type="select" name="integration_type" label="Integration Type" value="Standard">
+        <option value="Standard">Standard</option>
+        <option value="SCT">SCT</option>
+    </param>
+</inputs>
+<outputs>
+    <data name="rds_seurat_file" format="rdata" label="Integrated Seurat Object"/>
+</outputs>
+<help><![CDATA[
+    This tool integrates Seurat objects
+    ]]></help>
+</tool>
